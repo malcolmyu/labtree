@@ -1,16 +1,21 @@
+var path = require('path');
+
 module.exports = {
-    entry: 'entry.js',
+    entry: './app.js',
     output: {
-        path: __dirname,
+        path: path.join(__dirname, 'dist'),
         filename: 'main.js'
     },
     resolve: {
-        extensions: ['', 'scss', '.coffee', '.js']
+        extensions: ['', 'scss', '.js']
     },
     module: {
         loaders: [
-            { test: /\.html/, loader: 'html-loader' },
-            { test: /\.coffee$/, loader: 'coffee-loader' },
+            {
+                test: /\.jsx?$/,
+                exclude: /(node_modules|bower_components)/,
+                loader: 'babel'
+            },
             { test: /\.scss/, loader: 'style!css!sass' }
         ]
     }
