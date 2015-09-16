@@ -1,10 +1,14 @@
 import React from 'react'
 import Reflux from 'reflux'
 
-import loginStore from '../stores/login.js'
+// 引入组件
+import LabTreeHeader from './header.js'
+import ToggleButton from './toggle-button.js'
+import LoginForm from './login-form.js'
+
+import stores from '../stores/main.js'
 
 const LabTree = React.createClass({
-
-  mixins: [Reflux.connect(loginStore, 'isLogin')]
-
+  displayName: 'LabTree',
+  mixins: [Reflux.connect(store, 'main')]
 });

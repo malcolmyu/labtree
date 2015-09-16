@@ -1,8 +1,8 @@
 import React from 'react/addons'
-import actions from '../actions/login.js'
+import actions from '../actions/main.js'
 
 const LoginForm = React.createClass({
-
+  displayName: 'LoginForm',
   mixins: [React.addons.LinkedStateMixin],
 
   getInitialState: function() {
@@ -16,7 +16,7 @@ const LoginForm = React.createClass({
   render() {
     return (
       <form onSubmit={this.login} className="labtree-form">
-        <div className="labtree-form-row">
+        <div className="labtree-form-row">inpouin
           <label>用户名</label>
           <input type="text" required
                  valueLink={this.linkState('username')}/>
