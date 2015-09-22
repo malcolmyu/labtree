@@ -18,3 +18,5 @@ Thumbs.db
 # project ignore
 /node_modules/
 /dist/
+
+manifest.json
