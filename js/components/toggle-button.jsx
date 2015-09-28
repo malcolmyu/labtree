@@ -25,7 +25,7 @@ const ToggleButton = React.createClass({
     return (
       <a onClick={this.toggleSidebar}
          className="labtree-toggle btn">
-        <i className={'icon-caret-' + iconCx}></i>
+        <i className={`icon-caret-${iconCx}`}></i>
       </a>
     )
   }

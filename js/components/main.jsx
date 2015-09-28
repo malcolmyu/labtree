@@ -6,6 +6,7 @@ import cx from 'classnames'
 import LabTreeHeader from './header.jsx'
 import ToggleButton from './toggle-button.jsx'
 import LoginForm from './login-form.jsx'
+import TreeView from './tree-view.jsx'
 
 import store from '../stores/main.js'
 
@@ -21,11 +22,11 @@ const LabTree = React.createClass({
 
     let header = logged ? <LabTreeHeader/> :
       <div className="labtree-header">用户验证</div>;
-    let body = <LoginForm/>;
+    let body = logged ? <TreeView/>: <LoginForm/>;
 
     return (
       <div>
-        <nav className={'labtree ' + navCx}>
+        <nav className={`labtree ${navCx}`}>
           <ToggleButton/>
           {header}
           {body}

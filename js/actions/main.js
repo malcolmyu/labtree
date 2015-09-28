@@ -1,11 +1,13 @@
 import Reflux from 'reflux'
 import {
   login,
-  fetchRepoInfo
+  fetchRepoInfo,
+  fetchTreeInfo
 } from '../services/connect-gitlab.js'
 
 const actions = Reflux.createActions({
   toggle: {},
+  toggleTreeBranch: {},
 
   login: { asyncResult: true },
   fetchRepoInfo: { asyncResult: true },
@@ -14,5 +16,6 @@ const actions = Reflux.createActions({
 
 actions.login.listenAndPromise(login);
 actions.fetchRepoInfo.listenAndPromise(fetchRepoInfo);
+actions.fetchTreeInfo.listenAndPromise(fetchTreeInfo);
 
 export default actions
