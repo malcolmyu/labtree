@@ -1,16 +1,13 @@
 import './css/main.scss'
 
-import $ from 'jquery'
 import React from 'react'
-import LabTree from './js/components/LabTree.react.jsx'
 
-function renderLabTree() {
-    let container = document.createElement('div');
-    document.body.appendChild(container);
+import cm from './js/services/connect-mainpage.js'
+import LabTree from './js/components/main.jsx'
 
-    if ($('body').attr('data-project-id')) {
-        React.render(<LabTree/>, container);
-    }
-}
+let render = cm.renderLabTree(
+    container => React.render(<LabTree/>, container)
+);
 
-$(document).on('page:update', renderLabTree);
+render();
+cm.$on('page:update', render);
