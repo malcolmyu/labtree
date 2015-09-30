@@ -5,9 +5,14 @@ import React from 'react'
 import cm from './js/services/connect-mainpage.js'
 import LabTree from './js/components/main.jsx'
 
-let render = cm.renderLabTree(
-    container => React.render(<LabTree/>, container)
-);
+function renderLabTree() {
+  let container = document.createElement('div');
 
-render();
-cm.$on('page:update', render);
+  if (cm.getProjectId()) {
+    document.body.appendChild(container);
+    React.render(<LabTree/>, container);
+  }
+}
+
+renderLabTree();
+document.addEventListener('page:load', renderLabTree);

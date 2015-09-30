@@ -19,6 +19,12 @@ const TreeView = React.createClass({
     actions.fetchTreeInfo({});
   },
 
+  visitLink(url, event) {
+    event.preventDefault();
+    let fn = `Turbolinks.visit('${url}')`;
+    cm.executeScript(Function(fn));
+  },
+
   // 获取子树内容
   fetchChildrenTree(leaf) {
     let ori = leaf.toJS();
@@ -62,12 +68,13 @@ const TreeView = React.createClass({
         <span onClick={this.fetchChildrenTree.bind(this, leaf)}>
           <i className={`icon icon-caret-${toggleCx}`}></i>
           <i className={`icon icon-${typeCx}`}></i>
-          <a href={url}>{name}</a>
+          <a href={url} onClick={this.visitLink.bind(this, url)}>{name}</a>
         </span>
         {children}
       </li>
     )
   },
+
   // 渲染树主干内容
   renderTrunk(data, toggle) {
     let ulCx = cx({'labtree-list-hidden': !toggle});

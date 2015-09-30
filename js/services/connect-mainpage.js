@@ -1,29 +1,27 @@
-import $ from 'jquery'
-
 const handler = {
   getProjectId() {
-    return $('body').attr('data-project-id') || null;
+    return document.body.getAttribute('data-project-id') || null;
   },
   getBranchName() {
-    return $('#repository_ref').val() || null;
+    let repoRef = document.getElementById('repository_ref');
+    return repoRef.value || null;
   },
   toggleContainer(toggle) {
-    let action = toggle ? 'removeClass' : 'addClass';
-    $('.container')[action]('container-shim');
-  },
-  renderLabTree(render) {
-    let $container = $('<div></div>');
-    let $body = $('body');
+    let action = toggle ? 'remove' : 'add';
+    let containers = document.getElementsByClassName('container');
+    let i = 0, len = containers.length;
 
-    return () => {
-      if (handler.getProjectId()) {
-        $body.append($container);
-        render($container[0]);
-      }
+    for (; i < len; i++) {
+      containers[i].classList[action]('container-shim');
     }
   },
-  $on(target, callback) {
-    $(document).on(target, callback);
+  executeScript(foo) {
+    let code = `(${foo.toString()})()`;
+    var script = document.createElement('script');
+
+    script.textContent = code;
+    document.body.appendChild(script);
+    script.parentNode.removeChild(script);
   }
 };
 
