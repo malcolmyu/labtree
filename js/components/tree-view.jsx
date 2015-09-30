@@ -8,7 +8,8 @@ import actions from '../actions/main.js'
 import stores from '../stores/main.js'
 
 import {
-  REPO_INFO_Q
+  REPO_INFO_Q,
+  GLOBAL
 } from '../config.js'
 
 const TreeView = React.createClass({
@@ -16,7 +17,7 @@ const TreeView = React.createClass({
   mixins: [Reflux.connect(stores, 'main')],
 
   componentWillMount() {
-    actions.fetchTreeInfo({});
+    GLOBAL.TREE_INFO_FETCHED || actions.fetchTreeInfo({});
   },
 
   visitLink(url, event) {

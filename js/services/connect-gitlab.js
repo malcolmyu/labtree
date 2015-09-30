@@ -3,7 +3,8 @@ import $ from 'jquery'
 import cm from './connect-mainpage.js'
 import {
   REPO_INFO_Q,
-  STORAGE_KEY
+  STORAGE_KEY,
+  TREE_INFO_FETCHED
 } from '../config.js'
 
 let api = '/api/v3/';

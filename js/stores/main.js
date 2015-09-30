@@ -9,7 +9,8 @@ import cm from '../services/connect-mainpage.js'
 
 import {
   STORAGE_KEY,
-  REPO_INFO_Q
+  REPO_INFO_Q,
+  GLOBAL
 } from '../config.js'
 
 let logged = !!localStorage.getItem(STORAGE_KEY);
@@ -101,6 +102,7 @@ const store = Reflux.createStore({
 
       if (!parentId) {
         state.tree = Immutable.fromJS(treeData);
+        GLOBAL.TREE_INFO_FETCHED = true;
       } else {
         let tree = state.tree.toJS();
         if (node = getLeafById(tree, parentId)) {
