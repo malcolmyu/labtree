@@ -66,7 +66,8 @@ const TreeView = React.createClass({
 
     return (
       <li>
-        <div className="labtree-list-row">&nbsp;</div>
+        <div className="labtree-list-row"
+             onClick={this.fetchChildrenTree.bind(this, leaf)}>&nbsp;</div>
         <span onClick={this.fetchChildrenTree.bind(this, leaf)}>
           <i className={`icon icon-caret-${toggleCx}`}></i>
           <i className={`icon icon-${typeCx}`}></i>
