@@ -10,6 +10,11 @@ const ToggleButton = React.createClass({
   displayName: 'ToggleButton',
   mixins: [Reflux.connect(stores, 'main')],
 
+  componentWillMount() {
+    let toggle = this.state.main.get('toggle');
+    cm.toggleContainer(!toggle);
+  },
+
   toggleSidebar () {
     let toggle = this.state.main.get('toggle');
     cm.toggleContainer(toggle);

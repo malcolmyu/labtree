@@ -118,9 +118,28 @@
     padding: 0;
     list-style: none;
 
+    &-row {
+      position: absolute;
+      height: auto;
+      width: 100%;
+      left: 0;
+      -webkit-user-select: none;
+      box-sizing: border-box;
+      transition: background-color 0.15s, box-shadow 0.15s;
+
+      &:hover {
+        background: #eee;
+      }
+    }
+
     li {
+      cursor: pointer;
       line-height: 24px;
       white-space: nowrap;
+
+      span {
+        position: relative;
+      }
     }
 
     &-hidden {

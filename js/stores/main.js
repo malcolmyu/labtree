@@ -53,7 +53,8 @@ const store = Reflux.createStore({
   },
 
   // 登录事件处理
-  onLoginCompleted(ret) {
+  onLoginCompleted(res) {
+    let ret = res.body;
     let token = ret['private_token'];
     localStorage.setItem(STORAGE_KEY, token);
     state.logged = true;
@@ -64,7 +65,8 @@ const store = Reflux.createStore({
   },
 
   // 获取repo信息事件处理
-  onFetchRepoInfoCompleted(ret) {
+  onFetchRepoInfoCompleted(res) {
+    let ret = res.body;
     let branch = cm.getBranchName() || ret['default_branch'];
     let path = ret['path_with_namespace'];
 
@@ -92,7 +94,7 @@ const store = Reflux.createStore({
         let pathName = util.getNodePath(path, leaf.name);
         leaf.toggle = false;
         if (leaf.type !== 'blob') {
-          leaf.url = '';
+          leaf.url = `/${d.path}/tree/${d.branch}/${pathName}`;
           leaf.path = path;
         } else {
           leaf.url = `/${d.path}/blob/${d.branch}/${pathName}`;

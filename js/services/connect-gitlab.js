@@ -1,4 +1,5 @@
-import $ from 'jquery'
+import sa from 'superagent'
+import sap from 'superagent-promise'
 
 import cm from './connect-mainpage.js'
 import {
@@ -7,22 +8,22 @@ import {
   TREE_INFO_FETCHED
 } from '../config.js'
 
+let agent = sap(sa, Promise);
 let api = '/api/v3/';
 
 export function login(login, password) {
-  return $.ajax({
-    url: `${api}session`,
-    type: 'POST',
-    data: {login, password}
-  });
+  return agent
+    .post(`${api}session`)
+    .query({login, password})
+    .end()
 }
 
 export function fetchRepoInfo(id) {
   let key = localStorage.getItem(STORAGE_KEY);
-  return $.ajax({
-    url: `${api}projects/${id}`,
-    headers: {'PRIVATE-TOKEN': key}
-  });
+  return agent
+    .get(`${api}projects/${id}`)
+    .set('PRIVATE-TOKEN', key)
+    .end()
 }
 
 export function fetchTreeInfo({id = null, path = ''}) {
@@ -33,10 +34,11 @@ export function fetchTreeInfo({id = null, path = ''}) {
   return REPO_INFO_Q.promise.then(res => {
     let branch = res.branch;
     let query = `?path=${path}&ref:${branch}`;
-    let url = `${api}projects/${pid}/repository/tree${query}`;
+    let uri = `${api}projects/${pid}/repository/tree${query}`;
 
-    return $.ajax({
-      url, headers: {'PRIVATE-TOKEN': key}
-    });
-  }).then(res => [res, id, path]);
+    return agent
+      .get(uri)
+      .set('PRIVATE-TOKEN', key)
+      .end()
+  }).then(res => [res.body, id, path]);
 }
