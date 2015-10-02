@@ -3,7 +3,7 @@ import sap from 'superagent-promise'
 
 import cm from './connect-mainpage.js'
 import {
-  REPO_INFO_Q,
+  GLOBAL,
   STORAGE_KEY,
   TREE_INFO_FETCHED
 } from '../config.js'
@@ -31,7 +31,7 @@ export function fetchTreeInfo({id = null, path = ''}) {
   let pid = cm.getProjectId();
 
 
-  return REPO_INFO_Q.promise.then(res => {
+  return GLOBAL.REPO_INFO_Q.promise.then(res => {
     let branch = res.branch;
     let query = `?path=${path}&ref:${branch}`;
     let uri = `${api}projects/${pid}/repository/tree${query}`;

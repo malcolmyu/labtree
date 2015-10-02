@@ -8,7 +8,6 @@ import actions from '../actions/main.js'
 import stores from '../stores/main.js'
 
 import {
-  REPO_INFO_Q,
   GLOBAL
 } from '../config.js'
 

@@ -9,7 +9,6 @@ import cm from '../services/connect-mainpage.js'
 
 import {
   STORAGE_KEY,
-  REPO_INFO_Q,
   GLOBAL
 } from '../config.js'
 
@@ -70,7 +69,15 @@ const store = Reflux.createStore({
     let branch = cm.getBranchName() || ret['default_branch'];
     let path = ret['path_with_namespace'];
 
-    REPO_INFO_Q.resolve({branch, path});
+    if (path === GLOBAL.PROJECT && branch === GLOBAL.BRANCH) {
+      GLOBAL.REPO_INFO_Q.resolve({branch, path});
+    } else {
+      GLOBAL.PROJECT = path;
+      GLOBAL.BRANCH = branch;
+      GLOBAL.REPO_INFO_Q = Promise.defer();
+      GLOBAL.REPO_INFO_Q.resolve({branch, path});
+    }
+
     state.header = new Map({
       name: ret.name,
       url: ret['web_url'],
@@ -88,7 +95,7 @@ const store = Reflux.createStore({
     let node = null;
     let self = this;
 
-    REPO_INFO_Q.promise.then(d => {
+    GLOBAL.REPO_INFO_Q.promise.then(d => {
       // 填充树的节点数据
       let treeData = res.map(leaf => {
         let pathName = util.getNodePath(path, leaf.name);
