@@ -19,8 +19,9 @@ const TreeView = React.createClass({
     GLOBAL.TREE_INFO_FETCHED || actions.fetchTreeInfo({});
   },
 
-  visitLink(url, event) {
-    event.preventDefault();
+  visitLink(url, e) {
+    e.preventDefault();
+    e.stopPropagation();
     let fn = `Turbolinks.visit('${url}')`;
     cm.executeScript(Function(fn));
   },
@@ -33,6 +34,7 @@ const TreeView = React.createClass({
 
     if (ori.type !== 'blob') {
       if (!ori.toggle && !ori.children) {
+        actions.setTreeBranchLoading(id);
         actions.fetchTreeInfo({id, path});
       } else {
         actions.toggleTreeBranch(id);
@@ -43,11 +45,13 @@ const TreeView = React.createClass({
   // 渲染单个树叶内容
   renderLeaf(leaf) {
     let type = leaf.get('type');
+    let isFolder = type !== 'blob';
+
     let toggle = leaf.get('toggle');
     let url = leaf.get('url');
     let name = leaf.get('name');
+    let loaded = leaf.get('loaded') || !isFolder;
 
-    let isFolder = type !== 'blob';
     let children = null;
 
     let typeCx = cx({
@@ -68,7 +72,8 @@ const TreeView = React.createClass({
         <div className="labtree-list-row"
              onClick={this.fetchChildrenTree.bind(this, leaf)}>&nbsp;</div>
         <span onClick={this.fetchChildrenTree.bind(this, leaf)}>
-          <i className={`icon icon-caret-${toggleCx}`}></i>
+          {loaded || <div className="loader"></div>}
+          {loaded && <i className={`icon icon-caret-${toggleCx}`}></i>}
           <i className={`icon icon-${typeCx}`}></i>
           <a href={url} onClick={this.visitLink.bind(this, url)}>{name}</a>
         </span>

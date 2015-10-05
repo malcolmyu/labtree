@@ -17,11 +17,19 @@ const handler = {
   },
   executeScript(foo) {
     let code = `(${foo.toString()})()`;
-    var script = document.createElement('script');
+    let script = document.createElement('script');
 
     script.textContent = code;
     document.body.appendChild(script);
     script.parentNode.removeChild(script);
+  },
+  scrollTopAccessor(top) {
+    let treeView = document.getElementsByClassName('labtree-view')[0];
+    if (top) {
+      return treeView.scrollTop = top;
+    } else {
+      return treeView.scrollTop;
+    }
   }
 };
 

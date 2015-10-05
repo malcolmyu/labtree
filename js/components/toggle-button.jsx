@@ -23,6 +23,7 @@ const ToggleButton = React.createClass({
 
   render () {
     let toggle = this.state.main.get('toggle');
+    let loaded = this.state.main.get('loaded');
     let iconCx = cx({
       'left': toggle, 'right': !toggle
     });
@@ -30,7 +31,8 @@ const ToggleButton = React.createClass({
     return (
       <a onClick={this.toggleSidebar}
          className="labtree-toggle btn">
-        <i className={`icon-caret-${iconCx}`}></i>
+        {loaded || <div className="loader"></div>}
+        {loaded && <i className={`icon-caret-${iconCx}`}></i>}
       </a>
     )
   }

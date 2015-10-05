@@ -29,6 +29,22 @@
     color: #777777;
   }
 
+  .loader {
+    border-radius: 50%;
+    border: 2px solid #000;
+    border-top: 2px solid rgba(0,0,0,0);
+    border-left: 2px solid rgba(0,0,0,0);
+    width: 12px;
+    height: 12px;
+    animation: loading .5s infinite linear;
+    display: inline-block;
+  }
+
+  @keyframes loading {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
   &-toggle {
     width: 25px;
     height: 25px;
@@ -107,6 +123,7 @@
     padding-top: 13px;
     height: 100%;
     overflow: auto;
+    position: relative;
 
     .icon {
       color: #446e9b;
@@ -139,6 +156,13 @@
 
       span {
         position: relative;
+      }
+
+      .loader {
+        border: 2px solid #446e9b;
+        border-top: 2px solid rgba(0,0,0,0);
+        border-left: 2px solid rgba(0,0,0,0);
+        margin: 0 6px 0 4px;
       }
     }
 

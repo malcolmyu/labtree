@@ -8,6 +8,7 @@ import {
 const actions = Reflux.createActions({
   toggle: {},
   toggleTreeBranch: {},
+  setTreeBranchLoading: {},
 
   login: { asyncResult: true },
   fetchRepoInfo: { asyncResult: true },

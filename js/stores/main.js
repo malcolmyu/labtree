@@ -16,6 +16,7 @@ let logged = !!localStorage.getItem(STORAGE_KEY);
 
 let state = {
   toggle: false,
+  loaded: false,
   logged: logged,
   header: null,
   tree: []
@@ -51,12 +52,22 @@ const store = Reflux.createStore({
     this.refreshState();
   },
 
+  onSetTreeBranchLoading(id) {
+    let tree = state.tree.toJS();
+    let node = getLeafById(tree, id);
+    if (node) {
+      node.loaded = false;
+    }
+    state.tree = Immutable.fromJS(tree);
+    this.refreshState();
+  },
+
   // 登录事件处理
   onLoginCompleted(res) {
     let ret = res.body;
     let token = ret['private_token'];
     localStorage.setItem(STORAGE_KEY, token);
-    state.logged = true;
+    state.logged = false;
     this.refreshState();
   },
   onLoginFailed() {
@@ -74,10 +85,12 @@ const store = Reflux.createStore({
     } else {
       GLOBAL.PROJECT = path;
       GLOBAL.BRANCH = branch;
+      GLOBAL.REPO_INFO_Q.resolve({branch, path});
       GLOBAL.REPO_INFO_Q = Promise.defer();
       GLOBAL.REPO_INFO_Q.resolve({branch, path});
     }
 
+    state.loaded = true;
     state.header = new Map({
       name: ret.name,
       url: ret['web_url'],
@@ -103,6 +116,7 @@ const store = Reflux.createStore({
         if (leaf.type !== 'blob') {
           leaf.url = `/${d.path}/tree/${d.branch}/${pathName}`;
           leaf.path = path;
+          leaf.loaded = true;
         } else {
           leaf.url = `/${d.path}/blob/${d.branch}/${pathName}`;
         }
@@ -117,6 +131,7 @@ const store = Reflux.createStore({
         if (node = getLeafById(tree, parentId)) {
           node.children = treeData;
           node.toggle = !node.toggle;
+          node.loaded = true;
         }
         state.tree = Immutable.fromJS(tree);
       }
