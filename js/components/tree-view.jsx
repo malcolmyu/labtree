@@ -84,12 +84,15 @@ const TreeView = React.createClass({
 
   // 渲染树主干内容
   renderTrunk(data, toggle) {
-    let ulCx = cx({'labtree-list-hidden': !toggle});
+    let ulCx = cx({
+      'show': toggle,
+      'hide': !toggle
+    });
     let self = this;
     let list = data.size ? data.map(d => self.renderLeaf(d)) : '';
 
     return (
-      <ul className={`labtree-list ${ulCx}`}>
+      <ul className={`labtree-list labtree-list-${ulCx}`}>
         {list}
       </ul>
     )
