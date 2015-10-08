@@ -135,32 +135,6 @@
     padding: 0;
     list-style: none;
 
-    @keyframes slideDown {
-      0%   {
-        opacity: 0;
-        transform: scaleY(.8);
-        transform-origin: 0 0;
-      }
-      100% {
-        opacity: 1;
-        transform: scaleY(1);
-        transform-origin: 0 0;
-      }
-    }
-
-    @keyframes slideUp {
-      0%   {
-        opacity: 1;
-        transform: scaleY(1);
-        transform-origin: 0 0;
-      }
-      100% {
-        opacity: 0;
-        transform: scaleY(.8);
-        transform-origin: 0 0;
-      }
-    }
-
     &-row {
       position: absolute;
       height: auto;
@@ -192,19 +166,8 @@
       }
     }
 
-    &-show {
-      max-height: 9999px;
-      animation: slideDown .5s forwards;
-      animation-play-state: running;
-      animation-timing-function: cubic-bezier(.23, 1, .32, 1);
-    }
-
     &-hide {
-      max-height: 0;
-      animation: slideUp .5s forwards;
-      animation-play-state: running;
-      animation-timing-function: cubic-bezier(.23, 1, .32, 1);
-      transition: max-height .2s;
+      display: none;
     }
   }
 }
