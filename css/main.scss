@@ -1,23 +1,22 @@
+@import '_mixins';
+@import '_variables';
+
 .labtree {
-  padding-top: 46px;
-  width: 281px;
+  @include full();
+  @include translate-back();
   position: fixed !important;
+  padding-top: $header-height;
+  width: $labtree-width;
+  background-color: $shadow-gray-color;
+  border-right: 1px solid $border-color;
+  z-index: $z-index;
   overflow: visible;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: #f7f7f7;
-  border-right: 1px solid #dddddd;
-  transition: transform .2s ease;
-  z-index: 1001;
-  transform: translate(0, 0);
 
   &-hidden {
     transform: translate(-100%, 0);
 
     .labtree-toggle {
-      right: -35px;
+      right: -$toggle-width;
     }
   }
 
@@ -26,69 +25,53 @@
     display: inline-block;
     text-align: right;
     margin-right: 6px;
-    color: #777777;
   }
 
   .loader {
-    border-radius: 50%;
-    border: 2px solid #000;
-    border-top: 2px solid transparent;
-    border-left: 2px solid transparent;
-    width: 12px;
-    height: 12px;
-    animation: loading .5s infinite linear;
-    display: inline-block;
-  }
-
-  @keyframes loading {
-    0%   { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    @include loader(#000);
   }
 
   &-toggle {
-    width: 25px;
-    height: 25px;
+    width: $toggle-btn-width;
+    height: $toggle-btn-width;
+    position: absolute;
     top: 9px;
-    right: 5px;
+    right: $toggle-btn-right;
     padding: 6px;
     text-align: center;
     line-height: 1;
-    z-index: 1002;
+    z-index: $z-index + 1;
     cursor: pointer;
-    position: absolute;
-    color: black;
   }
 
   &-header {
-    width: 100%;
+    @include full();
+    height: $header-height;
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 46px;
-    font-size: 16px;
-    line-height: 28px;
-    background: #f3f3f3 linear-gradient(#f9f9f9, #f3f3f3) repeat-x;
-    margin: 0;
+    background: $dark-gray-color;
     text-shadow: 0 1px 0 #fff;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid $border-color;
     padding-left: 13px;
-    padding-right: 55px;
+    padding-right: $toggle-width;
 
     &-repo {
-      font-size: 13px;
+      @include ellipsis();
+      line-height: $header-height * 0.618;
       font-weight: bold;
-      width: 100%;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     &-branch {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      line-height: 1;
-      font-size: 12px;
+      @include ellipsis();
+
+      span {
+        font-size: $font-size - 1;
+      }
+    }
+
+    &-title {
+      line-height: $header-height;
+      font-weight: bold;
+      font-size: $font-size + 3;
     }
   }
 
@@ -98,24 +81,12 @@
     }
 
     label {
-      font-size: 14px;
       font-weight: bold;
     }
 
-    input {
-      width: 100%;
-      min-height: 34px;
-      padding: 7px 8px;
-      font-size: 13px;
-      color: #333;
-      vertical-align: middle;
-      background-color: #fff;
-      background-repeat: no-repeat;
-      background-position: right 8px center;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      outline: none;
-      box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
+    &-tips {
+      color: $danger-color;
+      padding-left: 10px;
     }
   }
 
@@ -126,7 +97,7 @@
     position: relative;
 
     .icon {
-      color: #446e9b;
+      color: $highlight-color;
     }
   }
 
@@ -159,9 +130,7 @@
       }
 
       .loader {
-        border: 2px solid #446e9b;
-        border-top: 2px solid #000;
-        border-left: 2px solid #000;
+        @include loader($highlight-color);
         margin: 0 6px 0 4px;
       }
     }
@@ -173,7 +142,6 @@
 }
 
 .container-shim {
-  margin-left: 350px;
-  transition: transform .2s ease;
-  transform: translate(0px, 0px);
+  @include translate-back();
+  padding-left: $labtree-width;
 }
