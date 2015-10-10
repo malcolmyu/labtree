@@ -2,12 +2,12 @@ import React from 'react'
 import Reflux from 'reflux'
 
 import cm from '../services/connect-mainpage.js'
-import store from '../stores/main.js'
+import stores from '../stores/main.js'
 import actions from '../actions/main.js'
 
 const Header = React.createClass({
   displayName: 'LabTreeHeader',
-  mixins: [Reflux.connect(store, 'main')],
+  mixins: [Reflux.connect(stores, 'main')],
 
   componentWillMount() {
     let projectId;

@@ -28,7 +28,7 @@ const handler = {
     if (top) {
       return treeView.scrollTop = top;
     } else {
-      return treeView.scrollTop;
+      return treeView ? treeView.scrollTop : 0;
     }
   }
 };

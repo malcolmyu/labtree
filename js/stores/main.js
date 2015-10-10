@@ -19,6 +19,7 @@ let state = {
   loaded: false,
   logged: logged,
   header: null,
+  tip: '',
   tree: []
 };
 
@@ -67,11 +68,16 @@ const store = Reflux.createStore({
     let ret = res.body;
     let token = ret['private_token'];
     localStorage.setItem(STORAGE_KEY, token);
-    state.logged = false;
+    state.logged = true;
     this.refreshState();
   },
-  onLoginFailed() {
-    // TODO
+  onLoginFailed(res) {
+    if (typeof res === 'string') {
+      state.tip = res;
+    } else {
+      state.tip = '校验失败';
+    }
+    this.refreshState();
   },
 
   // 获取repo信息事件处理

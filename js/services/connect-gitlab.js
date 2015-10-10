@@ -12,6 +12,11 @@ let agent = sap(sa, Promise);
 let api = '/api/v3/';
 
 export function login(login, password) {
+  if (login === '' || password === '') {
+    return new Promise((reslove, reject) => {
+      reject('请输入用户名和密码');
+    });
+  }
   return agent
     .post(`${api}session`)
     .query({login, password})
