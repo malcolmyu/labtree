@@ -85,6 +85,7 @@ const store = Reflux.createStore({
     let ret = res.body;
     let branch = cm.getBranchName() || ret['default_branch'];
     let path = ret['path_with_namespace'];
+    let groupName = ret.namespace.name;
 
     if (path === GLOBAL.PROJECT && branch === GLOBAL.BRANCH) {
       GLOBAL.REPO_INFO_Q.resolve({branch, path});
@@ -98,8 +99,9 @@ const store = Reflux.createStore({
 
     state.loaded = true;
     state.header = new Map({
-      name: ret.name,
-      url: ret['web_url'],
+      groupName,
+      groupUrl: `/groups/${groupName}`,
+      repoName: ret.name,
       path, branch
     });
     this.refreshState();

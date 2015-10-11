@@ -62,6 +62,7 @@
 
     &-branch {
       @include ellipsis();
+      line-height: 1;
 
       span {
         font-size: $font-size - 1;
@@ -116,7 +117,7 @@
       transition: background-color 0.15s, box-shadow 0.15s;
 
       &:hover {
-        background: #eee;
+        background: $dark-gray-color;
       }
     }
 
@@ -141,7 +142,12 @@
   }
 }
 
+.container {
+  transition: padding-left .2s ease;
+  padding-left: 0;
+}
+
 .container-shim {
-  @include translate-back();
+  transition: padding-left .2s ease;
   padding-left: $labtree-width;
 }

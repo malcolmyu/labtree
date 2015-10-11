@@ -19,15 +19,17 @@ const Header = React.createClass({
   render() {
     let br = cm.getBranchName();
     let header = this.state.main.get('header');
-    let url = header ? header.get('url') : '#';
-    let path = header ? header.get('path') : '';
+    let groupUrl = header ? header.get('groupUrl') : '#';
+    let groupName = header ? header.get('groupName') : '';
+    let repoName = header ? header.get('repoName') : '';
     let branch = br || (header ? header.get('branch') : 'master');
 
     return (
       <div className="labtree-header">
         <div className="labtree-header-repo">
           <i className="icon icon-book"></i>
-          <a href={url}>{path}</a>
+          <a href={groupUrl}>{groupName}</a>
+          &nbsp;/&nbsp;{repoName}
         </div>
         <div className="labtree-header-branch">
           <i className="icon icon-code-fork"></i>
