@@ -51,6 +51,7 @@ const TreeView = React.createClass({
     let url = leaf.get('url');
     let name = leaf.get('name');
     let loaded = leaf.get('loaded') || !isFolder;
+    let selected = leaf.get('selected');
 
     let children = null;
 
@@ -62,6 +63,7 @@ const TreeView = React.createClass({
       'down': isFolder && toggle,
       'right': isFolder && !toggle
     });
+    let rowCx = cx({'labtree-list-selected': selected});
 
     if (leaf.get('children')) {
       children = this.renderTrunk(leaf.get('children'), toggle);
@@ -69,7 +71,7 @@ const TreeView = React.createClass({
 
     return (
       <li>
-        <div className="labtree-list-row"
+        <div className={`${rowCx} labtree-list-row`}
              onClick={this.fetchChildrenTree.bind(this, leaf)}>&nbsp;</div>
         <span onClick={this.fetchChildrenTree.bind(this, leaf)}>
           {loaded || <div className="loader"></div>}

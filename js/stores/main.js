@@ -63,6 +63,15 @@ const store = Reflux.createStore({
     this.refreshState();
   },
 
+  onSetLeafSelected() {
+    if (state.tree.toJS) {
+      let tree = state.tree.toJS();
+      markSelected(tree);
+      state.tree = Immutable.fromJS(tree);
+      this.refreshState();
+    }
+  },
+
   // 登录事件处理
   onLoginCompleted(res) {
     let ret = res.body;
@@ -120,6 +129,8 @@ const store = Reflux.createStore({
       // 填充树的节点数据
       let treeData = res.map(leaf => {
         let pathName = util.getNodePath(path, leaf.name);
+        let url = window.location.href;
+
         leaf.toggle = false;
         if (leaf.type !== 'blob') {
           leaf.url = `/${d.path}/tree/${d.branch}/${pathName}`;
@@ -128,6 +139,9 @@ const store = Reflux.createStore({
         } else {
           leaf.url = `/${d.path}/blob/${d.branch}/${pathName}`;
         }
+        // 添加高亮
+        let reg = new RegExp(`${leaf.url}$`);
+        leaf.selected = reg.test(url);
         return leaf;
       });
 
@@ -166,6 +180,18 @@ function getLeafById(tree, id) {
       }
     }
   }
+}
+
+function markSelected(data) {
+  data.forEach(leaf => {
+    let url = window.location.href;
+    let reg = new RegExp(`${leaf.url}$`);
+    leaf.selected = reg.test(url);
+
+    if (leaf.children) {
+      markSelected(leaf.children);
+    }
+  });
 }
 
 export default store

@@ -113,12 +113,16 @@
       width: 100%;
       left: 0;
       -webkit-user-select: none;
-      box-sizing: border-box;
-      transition: background-color 0.15s, box-shadow 0.15s;
 
       &:hover {
         background: $dark-gray-color;
+        transition: background-color 0.15s;
       }
+    }
+
+    &-selected {
+      background: $selected-color;
+      transition: background-color 0.15s;
     }
 
     li {
