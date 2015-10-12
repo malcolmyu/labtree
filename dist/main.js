@@ -27959,10 +27959,9 @@
 
 	  return _configJs.GLOBAL.REPO_INFO_Q.promise.then(function (res) {
 	    var branch = res.branch;
-	    var query = '?path=' + path + '&ref:' + branch;
-	    var uri = api + 'projects/' + pid + '/repository/tree' + query;
+	    var uri = api + 'projects/' + pid + '/repository/tree';
 
-	    return agent.get(uri).set('PRIVATE-TOKEN', key).end();
+	    return agent.get(uri).set('PRIVATE-TOKEN', key).query({ path: path, ref_name: branch }).end();
 	  }).then(function (res) {
 	    return [res.body, id, path];
 	  });
