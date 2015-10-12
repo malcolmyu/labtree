@@ -38,12 +38,12 @@ export function fetchTreeInfo({id = null, path = ''}) {
 
   return GLOBAL.REPO_INFO_Q.promise.then(res => {
     let branch = res.branch;
-    let query = `?path=${path}&ref:${branch}`;
-    let uri = `${api}projects/${pid}/repository/tree${query}`;
+    let uri = `${api}projects/${pid}/repository/tree`;
 
     return agent
       .get(uri)
       .set('PRIVATE-TOKEN', key)
+      .query({path, ref_name: branch})
       .end()
   }).then(res => [res.body, id, path]);
 }
