@@ -28,4 +28,4 @@ GitLab 树形文件展示工具的 Chrome 插件
 
 ![界面](http://7xnghq.com1.z0.glb.clouddn.com/gitlab-tree-03.png)
 
-** PS: ** 这里之所以需要登录是因为 GitLab 在获取项目目录结构时需要 token 验证，详情可以参见 [GitLab API](http://gitlab.corp.qunar.com/help/api/README.md)。
+**PS:** 这里之所以需要登录是因为 GitLab 在获取项目目录结构时需要 token 验证，详情可以参见 [GitLab API](http://gitlab.corp.qunar.com/help/api/README.md)。
