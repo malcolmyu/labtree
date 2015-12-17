@@ -1,0 +1,25 @@
+{
+  "name": "labtree",
+  "version": "0.0.0",
+  "manifest_version": 2,
+  "author": "minghao.yu",
+  "description": "Display GitLab code in tree format",
+  "icons": {
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "http://gitlab.corp.qunar.com/*",
+    "tabs",
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "js": [
+        "dist/main.js"
+      ],
+      "matches": [
+        "http://gitlab.corp.qunar.com/*"
+      ]
+    }
+  ]
+}
